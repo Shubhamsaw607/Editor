@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css" />
+    <title>Curriculum Editor</title>
+</head>
+<body>
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="mianSidebar">
+                <div class="nav-btn-MinMax">
+                    <img onclick="window.location.href= '/'" alt="img" loading="lazy" src="logo.png" />
+                    <div class="toggle__nav__options active">
+                       <img src="sidebar-toggle-icon.svg" alt>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a href="#" id="viewAllBtn" class=" nav-link popupBtn">
+                    <img alt="img" alt="img" loading="lazy" src="paste.svg" />
+                    <span>Documents</span>
+                    </a>
+                    <a href="#" id="feedbackBtn" class=" nav-link popupBtn">
+                    <img alt="img" alt="img" loading="lazy" src="feedback.svg" />
+                    <span>Feedback</span>
+                    </a>
+                    <a href="" class="  nav-link popupBtn" data-title="Contact Us">
+                    <img loading="lazy" src="contact_us.svg" alt="Online Notepad" />
+                    <span>Contact Us</span>
+                    </a>
+                    <a class href=" ">
+                    <img alt="img" alt="img" loading="lazy" src="privacy.svg" />
+                    <span>Privacy Policy</span>
+                    </a>
+                    <a class href="">
+                    <img loading="lazy" src="contact_us.svg" alt="Online Notepad" />
+                    <span>Terms of Use</span>
+                    </a>
+                    <a href=" " class="nav-link popupBtn" data-title="Change Log">
+                    <img loading="lazy" src="changelog.svg" alt="Online Notepad" />
+                    <span>Change Log</span>
+                    </a>
+                    <a id="applications" href="#" class="nav-link popupBtn" data-title="Contact Us">
+                    <img loading="lazy" src="applications.svg" alt="Online Notepad" />
+                    <span>Applications</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        <div class="main-content" id="main-content">
+            <header class="header-main  guestUser">
+                <div class="nav__toggler">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="right__header">
+                    <button id="searchBtn">
+                    <img width="20px" loading="lazy" height="20px" src="search.svg" alt="search-icon">
+                    </button>
+                    <button id="toggle" class="icon__btn theme__btn">
+                    <img width="20px" loading="lazy" height="20px" id="img_toggler" src="moon.png" alt>
+                    </button>
+                    <button id="aboutToolBtn" class="icon__btn">
+                    <img width="20px" loading="lazy" height="20px" src="about-icon.svg" alt="about-icon">
+                    </button>
+                    <button class data-disply="true" id="loginBtn">
+                    <img width="20px" loading="lazy" height="20px" src="login-icon.svg" alt="login-icon">
+                    Sign in
+                    </button>
+                </div>
+            </header>
+            <script>
+                        function toggleOnLoad() {
+                            var currentTheme = localStorage.getItem("theme")
+            
+                            document.querySelector("html").classList = []
+                            document.querySelector("html").classList.add(currentTheme);
+            
+                            if (currentTheme == "dark") {
+                                document.getElementById("img_toggler").setAttribute("src",
+                                    "light.png");
+                            } else if (currentTheme == 'light') {
+                                document.getElementById("img_toggler").setAttribute("src",
+                                    "moon.png");
+            
+                            } else if (currentTheme == 'dark-green') {
+                                document.getElementById("img_toggler").setAttribute("src",
+                                    "moon.png");
+                            }
+                        }
+                        toggleOnLoad();
+                    </script>
+             <div class="page-contents">
+                <form action=" " id="downloadPDFForm" name="downloadPDF" target="_blank" method="post">
+                    <input type="hidden" name="_token" value="F7XyXjeczBLQbavrtIU9n4jGtgc7H86VRB4xrkPG"> <div id="output-html"></div>
+                    <div class="input__group" id="TtextEdior">
+                        <div class="title__bar">
+                            <div class="doc__title__wrapper">
+                                <input onkeydown="if(event.keyCode === 13) event.preventDefault();" type="text" name="doc__title" id="doc__title" class="doc__title" placeholder="Untitled Document" />
+                                <span id="doc__status" class="d-none">Auto Saving...</span>
+                            </div>
+                            <div class="document__options">
+                                <label id="txtFile">
+                                    <img width="20px" height="20px" loading="lazy" src="upload-icon.svg" alt>
+                                    <input class="custom-file-input" type="file" accept=".txt,.pdf,.doc,.docx" name="txtFile" id="txtFile" />
+                                    <span>Upload</span>
+                                </label>
+                                <div onclick="clone()">
+                                    <img width="20px" height="20px" loading="lazy" src="clone-icon.svg" alt>
+                                    <span>Clone</span>
+                                </div>
+                                <div id="downloadFile" data-title="Download Document">
+                                    <img width="20px" height="20px" loading="lazy" src="download-icon.svg" alt>
+                                    <span>Download</span>
+                                </div>
+                                <div id="shareDoc" class=" nav-link popupBtn" data-title="Share Document">
+                                    <img width="20px" height="20px" loading="lazy" src="share-icon.svg" alt>
+                                    <span>Share</span>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="loader">
+                    </div>
+                    <div class="notepad__text__area">
+                        <div class="fullscreen__btn min-max-btn tooltip icon__btn" id="fullscreen">
+                            <img loading="lazy" width="12px" height="12px" alt="img" class="fullScreen" src="fullscreen.svg" />
+                            <img loading="lazy" width="12px" height="12px" alt="img" class="normalScreen" src="removeFullScreen.svg" />
+                            Full Screen
+                        </div>
+                        <div id="focus__on__editor"></div>
+                        <div class="words__wrapper">
+                        <p class="word__counter">Words: <span id="wordCount">0</span></p>
+                        <p class="char__counter">Characters: <span id="charCount">0</span></p>
+                        </div>
+                        <div id="editorTextarea">
+                        <h4><strong><em><u><span class="ql-cursor">﻿</span></u></em></strong></h4>
+                        </div>
+                        <textarea name="editorTextarea__text" hidden id="editorTextarea__text" cols="30" rows="10"></textarea>
+                        <input type="hidden" name="download_type" id="download_type_form" value="pdf">
+                        <div class="toolbar-floating" style="display: none;">
+                        
+                        <button onclick="formatText('bold')">Bold</button>
+                        <button onclick="formatText('italic')">Italic</button>
+                        
+                        </div>
+                    </div>
+                </form>
+                <div class="aboutTool" id="aboutTool">
+                <h2><strong>Curriculum Editor</strong></h2><p><span style="font-weight: 400;">An Curriculum Editor is a plain text editor that you can use to create, edit, and save text-based documents in real-time on the Internet.</span></p><p>&nbsp;</p><h2><strong>How to Use Our Curriculum Editor</strong></h2><p><span style="font-weight: 400;">You can use it quickly and easily with only a few steps.</span></p><ol><li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Open the Curriculum Editor by entering the URL ( </span><a href="C:\Users\HP\Desktop\html_webpage\project_2\curriculumEditor.html"><span style="font-weight: 400;">C:\Users\HP\Desktop\html_webpage\project_2\curriculumEditor.html</span></a><span style="font-weight: 400;"> )</span></li><li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Once the tool is open, you can start typing or paste your text in the provided space. You can also edit an existing document by uploading a file from your local storage.</span></li><li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">Use the provided formatting options to style your text as needed (e.g., bold, italic, bullet points).</span></li><li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">After the document is complete, you can </span><strong><em>Clone</em></strong><em><span style="font-weight: 400;">, </span></em><strong><em>Download</em></strong><em><span style="font-weight: 400;">, </span></em><span style="font-weight: 400;">or </span><strong><em>Share</em></strong><em><span style="font-weight: 400;"> </span></em><span style="font-weight: 400;">it. If you close the website or browser window, your text will be automatically saved.</span></li></ol><p>&nbsp;</p><h2><strong>Why should you use our Curriculum Editor?</strong></h2><p><span style="font-weight: 400;">Text Editor is a web-based tool that allows users to create, edit, format, and manipulate text directly within a web browser. It serves as a convenient and accessible editpad for working with text-based content without the need to install specialized software on your device. Here are some of the key functions of our online notepad:</span></p><p>&nbsp;</p><ol><li><span style="font-weight: 400;">Quick Note-taking</span></li><li><span style="font-weight: 400;">Formatting Text</span></li><li><span style="font-weight: 400;">Sharing and Collaboration</span></li><li><span style="font-weight: 400;">Creating and Editing Text Documents</span></li></ol><p>&nbsp;</p><h2><strong>Key Features of Our Wordpad Online</strong></h2><p><span style="font-weight: 400;">This online wordpad offers a range of features designed to help users easily create, organize, and manage their notes. Here are some key features you might find in this tool.</span></p><p>&nbsp;</p><h3><strong>1. User-friendly Interface:</strong></h3><p><span style="font-weight: 400;">Online Notepad has a very user-friendly interface. All the options you will need are displayed clearly around the interface. Even if you are a beginner and don&rsquo;t have much experience using word processors or text editors, you can do your work easily with a Curriculum Editor.</span></p><p>&nbsp;</p><h3><strong>2. Text Editing and Formatting:</strong></h3><p><span style="font-weight: 400;">There are multiple text formatting options that you can utilize when using our text editor. These options can help you style your text as you want by </span><strong>bolding it</strong><span style="font-weight: 400;">, </span><em><span style="font-weight: 400;">italicizing it</span></em><span style="font-weight: 400;">, </span><span style="font-weight: 400;">underlining it</span><span style="font-weight: 400;">, adding lists, etc.</span></p><p>&nbsp;</p><h3><strong>3. Auto-Save:</strong></h3><p><span style="font-weight: 400;">It automatically saves your work as you type, helping you avoid accidental data loss.</span></p><p>&nbsp;</p><h3><strong>4. Sync Across Devices:</strong></h3><p><span style="font-weight: 400;">Our Curriculum Editor is quite different from normal text editors since it allows you to create an account and sync all files/documents across different platforms. You can access and edit your notes on computers, smartphones, and tablets as long as you're connected to the internet.</span></p><p>&nbsp;</p><h3><strong>5. Notes Search:</strong></h3><p><span style="font-weight: 400;">To quickly locate specific notes, our online notepad usually has a search bar that helps you search through your notes by keywords, tags, or titles.</span></p><p>&nbsp;</p><h3><strong>6. Collaboration and Sharing:</strong></h3><p><span style="font-weight: 400;">With our Curriculum Editor, you can create notes and seamlessly share them with other individuals over the Internet. Each online file has a unique URL you can send to anyone.</span></p><p><span style="font-weight: 400;">This can be a convenient way to share files and allow multiple users to work on the same note simultaneously.</span></p><p>&nbsp;</p><h3><strong>7. Full-Screen Mode</strong></h3><p><span style="font-weight: 400;">You can type out your documents in the normal mode i.e., with all the toolbars and tabs on your browser visible and showing. But if you want to make the process more immersive, you can click on the &ldquo;Full Screen&rdquo; button. This will spread the entire tool interface across the screen.</span></p><p>&nbsp;</p><h3><strong>8. Dark Mode</strong></h3><p><span style="font-weight: 400;">It has a dark mode that you can use to change the interface to a black-dominant look. If you want to work on your documents in a dark setting, you can use this feature to make everything easier on the eyes.</span></p><p>&nbsp;</p><h3><strong>9. Download File</strong></h3><p><span style="font-weight: 400;">You can also download your files to your local storage. This can help you share the files more easily and open them on your device&rsquo;s native apps if you require.</span></p><p>&nbsp;</p><h3><strong>10. Upload File</strong></h3><p><span style="font-weight: 400;">You can upload files from your local storage to work on them instead of creating new documents from scratch. The good thing about the file uploading feature is that you can fetch files in any text-related format. You upload:</span></p><p>&nbsp;</p><ul><li><span style="font-weight: 400;">DOCX files</span></li><li><span style="font-weight: 400;">DOC files (the older version of DOCX)</span></li><li><span style="font-weight: 400;">TXT files</span></li><li><span style="font-weight: 400;">PDF files</span><span style="font-weight: 400;"><br><br></span></li></ul><h3><strong>11. Clone Notes</strong></h3><p><span style="font-weight: 400;">This is also a fairly useful option that you can enjoy when using our wordpad. The &ldquo;Clone&rdquo; feature basically opens up a copy of the current document in another tab.</span></p><p>&nbsp;</p><h3><strong>12. Cross-Platform Compatibility:</strong></h3><p><span style="font-weight: 400;">This online notepad can be accessible through web browsers, making it compatible with various operating systems and devices without needing specific software installations.</span></p><p>&nbsp;</p><h3><strong>13. User Registration</strong></h3><p><span style="font-weight: 400;">Unlike other text editors and word processors, our Curriculum Editor allows you to create an account and register as a user. This helps you synchronize your work across all the devices or platforms you work on.</span></p><h2><strong>FAQs</strong></h2><h3><strong>How to bold text in Curriculum Editor?</strong></h3><p><span style="font-weight: 400;">You can bold text in a Curriculum Editor by selecting the bold option from the formatting toolbar or using a shortcut key (ctrl+b).</span></p><h3><strong>How to count words in Curriculum Editor?</strong></h3><p><span style="font-weight: 400;">The total word count is displayed at the bottom right corner of the text box. You can count your words and characters from there.</span></p><h3><strong>How to write notes online?</strong></h3><p><span style="font-weight: 400;">You can write notes online using our Curriculum Editor tool. Just open it up, start typing, format your text, and download it all back to your device.</span></p>
+                </div>
+            </div>
+            <script>
+                    var css_path = "styles.css";
+                </script>
+            
+            <footer>
+            
+            <div id="viewAllBox">
+            <div class="cardsRow"></div>
+            </div>
+            <div class="popup__wrapper">
+            <div id="searchPopup" class="secondPopUp">
+            <div>
+            <div class="popup__header">
+            <button type="button" class="popup__close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div class="input__group search">
+            <img src="search.svg" alt>
+            <input autocomplete="off" type="text" id="search" name="search" class="doc__title" placeholder="Search Document..." />
+            </div>
+            </div>
+            </div>
+            <ul id="searchResult"></ul>
+            </div>
+            <div id="contact_success" class="secondPopUp">
+            <div class="popup__header">
+            <button type="button" class="popup__close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="popup__body">
+            <img loading="lazy" src="contact_thank.svg" alt>
+            <h3 class="popup__title">Thank You</h3>
+            <div id="content_contact">Your message has been sent. Someone from our support team will reply to your
+            message
+            within 24 hours</div>
+            </div>
+            <div class="popup__footer">
+            <button type="button" class="popup__close btn-primary">
+            <span aria-hidden="true">Close</span>
+            </button>
+            </div>
+            </div>
+            <div id="viewAllContentPopup" class="popup">
+            <div class="popup__header">
+            <h3 class="popup__title">Help</h3>
+            <button type="button" class="popup__close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div class="viewcard__searchbar">
+            <button id="popup__searchBtn">
+            <img width="20px" loading="lazy" height="20px" src="search.svg" alt="search-icon">
+            <span>Search Notes </span>
+            </button>
+            <div>
+            <select name id="notes__filter">
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+            <option value="recent">Recent</option>
+            </select>
+            <div class="label__dropdown show">
+            <div style="margin-top: 0px !important" id="show__label__dropdown">
+            <p data-id="all">
+            All
+            </p>
+            <img src="dropdown-icon.svg" alt>
+            </div>
+            <div style="z-index: 1;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" id="filter__by__label">
+            <p data-id="all">All</p>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div id="viewcontent">
+            </div>
+            </div>
+            <div class="popup__footer"></div>
+            <div class="label__list__wrapper" style="display:none">
+            <h4>Select Label For Note</h4>
+            <button class="close">x</button>
+            <div class="label__list">
+            </div>
+            <div class="done__label__list">
+            <button class="btn__primary">Done</button>
+            </div>
+            </div>
+            </div>
+            <section class="assign__label">
+            <div>
+            <h4>Label</h4>
+            <a href="/account?new-label" id="create__new__label">
+            <span>Create New</span>
+            <img src="add-icon.svg" alt>
+            </a>
+            </div>
+            <div>
+            <p>Select Label</p>
+            <div class="label__dropdown show" id="new__label__id">
+            <div>
+            <p data-id></p>
+            <img src="dropdown-icon.svg" alt>
+            </div>
+            <div id="new__label__dropdown">
+            </div>
+            </div>
+            </div>
+            <div>
+            <button id="dismissLabelPopup">Dismiss</button>
+            <button data-note-id data-label-id id="assignLabelBtn">Done</button>
+            </div>
+            </section>
+            <div id="aboutUsPopup" class="popup">
+            <div class="popup__header">
+            <h3 class="popup__title">Help</h3>
+            <button type="button" class="popup__close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div id="content">
+            </div>
+            </div>
+            <div class="popup__footer"></div>
+            </div>
+            <div class="secondPopUp login_popup">
+            <div class="popup__header">
+            <div style="max-width: 380px">
+            <h3 class>
+            Register
+            </h3>
+            <p style="font-size: 16px;line-height: 130% !important">Register now to save and access your documents anytime, anywhere</p>
+            </div>
+            <button type="button" class="popup__close">
+            <img loading="lazy" src="close.svg" alt>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div id>
+            <div class="row">
+            <button onclick="window.location.href = 'https://www.login/google'" title="Login using google">
+            <img loading="lazy" src="google_login.svg" alt />
+            <span>Continue with Google</span>
+            </button>
+            </div>
+            </div>
+            </div>
+            <div class="popup__footer">
+            <button class="popup__dismiss">Dismiss</button>
+            </div>
+            </div>
+            <div class="secondPopUp downloadPopup">
+            <div class="popup__header">
+            <div>
+            <h3 class>
+            Download Your Notes
+            </h3>
+            <p style="font-size: 16px;">Please Select the File Type of download your notes</span>
+            </div>
+            <button type="button" class="popup__close">
+            <img src="close.svg" alt>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div id="popup__content">
+            <div class="row">
+            <button class="download__btn active" data-value="txt" title="Download file as TEXT file">
+            <img loading="lazy" src="txt-new.svg" alt />
+            <span>TEXT</span>
+            </button>
+            <button class="download__btn" data-value="pdf" title="Download file as PDF file">
+            <img loading="lazy" src="pdf-new.svg" alt />
+            <span>PDF</span>
+            </button>
+            <button class="download__btn" data-value="doc" title="Download file as WORD file" >
+            <img loading="lazy" src="doc-new.svg" alt />
+            <span>WORD</span>
+            </button>
+            </div>
+            </div>
+            </div>
+            <div class="popup__footer">
+            <button class="popup__dismiss">Dismiss</button>
+            <button id="downloadFileBtn" data-value="txt" class="btn_dark">Download <img loading="lazy" src="download-popup.svg" alt></button>
+            </div>
+            </div>
+            <div class="secondPopUp feedback__popup">
+            <div class="popup__header">
+            <div>
+            <h3 class>
+            Give Feedback
+            </h3>
+            <span>What do you feel about Curriculum Editor ?</span>
+            </div>
+            <button type="button" class="popup__close feedback_close">
+            <img loading="lazy" src="close.svg" alt>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div>
+            <div class="row emoji_box">
+            <button data-value="1" class="feedback_btn">
+            <img loading="lazy" src="angry.svg" alt />
+            <span>Terrible</span>
+            </button>
+            <button data-value="2" class="feedback_btn">
+            <img loading="lazy" src="bad.svg" alt />
+            <span>Bad</span>
+            </button>
+            <button data-value="3" class="feedback_btn">
+            <img loading="lazy" src="average.svg" alt />
+            <span>Average</span>
+            </button>
+            <button data-value="4" class="feedback_btn">
+            <img loading="lazy" src="good.svg" alt />
+            <span>Good</span>
+            </button>
+            <button data-value="5" class="feedback_btn">
+            <img loading="lazy" src="amazing.svg" alt />
+            <span>Amazing</span>
+            </button>
+            </div>
+            <div class="message_box">
+            <div class="message_div">
+            <input type="hidden" id="feedbackVal" name="feedback_val" value="5">
+            <textarea name="message" id="message" cols="30" rows="5" placeholder="Write your message here"></textarea>
+            <button type="button" id="send_feedback">
+            <img loading="lazy" src="send.svg" alt>
+            </button>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="popup__footer"></div>
+            <div class="feedback__success__msg d-none">
+            <img src="done.svg" alt="Tick">
+            <h4>Feedback Submitted Successfully</h4>
+            </div>
+            </div>
+            <div class="secondPopUp sharePopup">
+            <div class="popup__header">
+            <div>
+            <h3 class>
+            Share
+            </h3>
+            <span>Choose an option</span>
+            </div>
+            <button type="button" class="popup__close">
+            <img loading="lazy" src="close.svg" alt>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div id="popup__content">
+            <div class="row">
+            <a target="_blank" href="#" class="shareFacebook" title="Share on Facebook">
+            <img loading="lazy" src="facebook_share.svg" alt />
+            <span>Facebook</span>
+            </a>
+            <a target="_blank" href="#" class="shareTwitter" title="Share on Twitter">
+            <img loading="lazy" src="twitter_share.svg" alt />
+            <span>Twitter</span>
+            </a>
+            <a target="_blank" href="#" class="shareEmail" title="Share on Email">
+            <img loading="lazy" src="gmail_share.svg" alt />
+            <span>Mail</span>
+            </a>
+            <a href="#" class="shareLink tooltip" title="Share Link">
+            <img loading="lazy" src="share_link.svg" alt />
+            <span>Share Link</span>
+            </a>
+            </div>
+            </div>
+            </div>
+            <div class="popup__footer">
+            <button class="popup__dismiss">Dismiss</button>
+            </div>
+            </div>
+            <div class="secondPopUp applicationsPopup">
+            <div class="popup__header">
+            <div>
+            <h3 class>
+            Download Applications
+            </h3>
+            <span>Choose to synchronize your data across devices</span>
+            </div>
+            <button type="button" class="popup__close">
+            <img loading="lazy" src="close.svg" alt>
+            </button>
+            </div>
+            <div class="popup__body">
+            <div id="popup__content">
+            <div class="row">
+            <a target="_blank" href="https://play.google.com" title="Download Android Application">
+            <img loading="lazy" src="playstore.svg" alt />
+            <span>Play Store</span>
+            </a>
+            <a target="_blank" href="https://apps.apple.com" title="Download IOS Application">
+            <img loading="lazy" src="ios.svg" alt />
+            <span>Apple Store</span>
+            </a>
+            <a target="_blank" href="#" title="Download Windos Application" >
+            <img loading="lazy" src="windows.svg" alt />
+            <span>Desktop</span>
+            </a>
+            </div>
+            </div>
+            </div>
+            <div class="popup__footer">
+            <button class="popup__dismiss">Dismiss</button>
+            </div>
+            </div>
+            <div class="secondPopUp errorSnap">
+            <div class="popup__header">
+            <div>
+            <h3 class="snap_title">
+            Oh, Snap!
+            </h3>
+            <span class="error__message">An error has occurred while performing the action</span>
+            </div>
+            <img loading="lazy" src="snap.svg" alt>
+            </div>
+            <div class="popup__footer">
+            <button class="popup__dismiss">Dismiss</button>
+            </div>
+            </div>
+            </div>
+            </footer>
+            
+            <script type="text/javascript">
+                    var tawk_chat_url = "";
+                    var Tawk_API = Tawk_API || {},
+                        Tawk_LoadStart = new Date();
+                    (function() {
+                        var s1 = document.createElement("script"),
+                            s0 = document.getElementsByTagName("script")[0];
+                        s1.async = true;
+                        s1.src = tawk_chat_url;
+                        s1.charset = 'UTF-8';
+                        s1.setAttribute('crossorigin', '*');
+                        setTimeout(() => {
+                            s0.parentNode.insertBefore(s1, s0);
+                        }, 300);
+                    })
+                    ();
+                </script>
+            
+            <script src="jquery.js"></script>
+            <script src="quill.js"></script>
+            <script>
+                const ASSET_DEFAULT_PATH = " ";
+            </script>
+            <script>
+                    var untitledNumber = '1';
+                    var user_unique_id = false;
+                    var user_created_at = false;
+                    var user_content = false;
+                    var user_created_at = false;
+                    var user_updated_at = false;
+                    var readOnly = false;
+                                user_unique_id = '18b3985fe39ee54';
+                        user_title = `Untitled Document (1)`;
+                        user_content = ``;
+                        user_created_at = '2023-10-16 17:26:25';
+                        user_updated_at = '2023-10-16 17:27:43';
+                        </script>
+            <script async defer src="script.js">
+            </script>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://font s.gstatic.com" crossorigin />
+            <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+            <noscript>
+                <link rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap">
+            </noscript>
+            <script>
+                var jFiles = [
+                    "html-docx.js",
+                    "FileSaver.min.js"
+                ];
+                window.addEventListener('load', (() => loadFiles(jFiles)));
+            
+                function loadFiles(links = [], time = 1500) {
+                    setTimeout(() => {
+                        if (Array.isArray(links)) {
+                            links.map(link => {
+                                $('footer').append('<script async defer src="' + link + '"></\script>');
+                            })
+            
+                        }
+                    }, time);
+                }
+            </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
